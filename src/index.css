@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@theme {
+  --color-player-base: #121212;
+  --color-player-highlight: #1a1a1a;
+  --color-player-press: #000000;
+  --color-player-elevated: #242424;
+  --color-player-accent: #1db954; /* Spotify green */
+}
+
+@layer base {
+  body {
+    @apply bg-player-press text-white font-sans antialiased overflow-hidden;
+  }
+}
+
+/* Custom scrollbar for dark modern vibe */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
