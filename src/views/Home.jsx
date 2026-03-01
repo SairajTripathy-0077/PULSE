@@ -1,8 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Loader2 } from 'lucide-react';
+import { searchTracks } from '../services/api';
 import { dummySongs } from '../data/songs';
 import SongCard from '../components/ui/SongCard';
 
 const Home = () => {
+    const [featuredSongs, setFeaturedSongs] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchSongs = async () => {
+            setIsLoading(true);
+            try {
+                // Fetch some default popular hits
+                const songs = await searchTracks('top hits 2024');
+                if (songs && songs.length > 0) {
+                    setFeaturedSongs(songs);
+                } else {
+                    setFeaturedSongs(dummySongs); // fallback if empty
+                }
+            } catch (error) {
+                console.error("Failed to fetch featured songs:", error);
+                setFeaturedSongs(dummySongs); // fallback on error
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchSongs();
+    }, []);
+
     return (
         <div className="p-8 pb-32 h-full overflow-y-auto relative z-0 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent pr-4">
 
@@ -20,16 +47,22 @@ const Home = () => {
                     <h2 className="text-2xl font-bold text-white tracking-wide">Featured Tracks</h2>
                 </div>
 
-                {/* Responsive Grid */}
-                <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
-                    {dummySongs.map(song => (
-                        <SongCard
-                            key={song.id}
-                            song={song}
-                            queue={dummySongs}
-                        />
-                    ))}
-                </div>
+                {isLoading ? (
+                    <div className="flex items-center justify-center py-20">
+                        <Loader2 size={40} className="animate-spin text-purple-400" />
+                    </div>
+                ) : (
+                    /* Responsive Grid */
+                    <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
+                        {featuredSongs.map(song => (
+                            <SongCard
+                                key={song.id}
+                                song={song}
+                                queue={featuredSongs}
+                            />
+                        ))}
+                    </div>
+                )}
             </section>
 
         </div>

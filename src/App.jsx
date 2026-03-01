@@ -5,10 +5,9 @@ import PlayerBar from './components/layout/PlayerBar';
 import Home from './views/Home';
 import Search from './views/Search';
 import PlaylistView from './views/PlaylistView';
-import { usePlayer } from './context/PlayerContext';
+import Library from './views/Library';
 
 const App = () => {
-  const { currentSong, setIframeRef } = usePlayer();
 
   return (
     <Router>
@@ -29,7 +28,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/search" element={<Search />} />
-            <Route path="/library" element={<Home />} />
+            <Route path="/library" element={<Library />} />
             <Route path="/playlist/:id" element={<PlaylistView />} />
           </Routes>
         </div>

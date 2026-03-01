@@ -1,7 +1,6 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { usePlaylists } from '../context/PlaylistContext';
-import { dummySongs } from '../data/songs'; // Fallback for local dummy data
 import SongRow from '../components/ui/SongRow';
 import { Trash2, Music, Play } from 'lucide-react';
 import { usePlayer } from '../context/PlayerContext';

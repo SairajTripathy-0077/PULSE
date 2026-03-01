@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { usePlayer } from '../../context/PlayerContext';
 import {
     Play, Pause, SkipBack, SkipForward,
